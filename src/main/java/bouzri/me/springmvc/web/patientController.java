@@ -6,13 +6,15 @@ import bouzri.me.springmvc.repositories.patientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -35,6 +37,35 @@ public class patientController {
         model.addAttribute("currentPage", page);
         model.addAttribute("key", key);
         return "patients";
+    }
+
+    @GetMapping("/PatientForm")
+    public String PatientForm(Model model)
+    {
+        model.addAttribute("patient", new Patient());
+        return "PatientForm";
+    }
+
+    @PostMapping("/save")
+    public String Save(Model model, @Valid Patient p, BindingResult bindingResult,
+                       @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "") String key)
+    {
+        if (bindingResult.hasErrors()) return "PatientForm";
+        patientRepo.save(p);
+        return "redirect:/patients?page="+page+"&key="+key;
+    }
+    @GetMapping("/update")
+    public String Update(Model model, Long id, int page, String key)
+    {
+        Patient p = patientRepo.findById(id).orElse(null);
+        if (p == null) throw new RuntimeException("No such Patient");
+
+        model.addAttribute("patient", p);
+        model.addAttribute("page", page);
+        model.addAttribute("key", key);
+
+        return "editPatient";
     }
 
     @GetMapping("/delete")
