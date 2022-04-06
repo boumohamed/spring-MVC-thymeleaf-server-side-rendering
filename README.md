@@ -7,4 +7,7 @@
 ![image](https://user-images.githubusercontent.com/62290643/160648152-43f39708-f1e2-4b14-81e7-e66d0f55206b.png)
 # Ajouter patient
 ![image](https://user-images.githubusercontent.com/62290643/161989633-8f1941d1-6936-4c20-a4e1-3bfc14e7278e.png)
+# Editer un Patient
+![image](https://user-images.githubusercontent.com/62290643/161999467-64cde9d2-0072-4bcd-8009-f7f1c03348fd.png)
+
 
