@@ -35,6 +35,7 @@ public class patientController {
         model.addAttribute("currentPage", page);
         model.addAttribute("key", key);
         return "patients";
+        // UUID generate raondom
     }
 
     @GetMapping("/delete")
