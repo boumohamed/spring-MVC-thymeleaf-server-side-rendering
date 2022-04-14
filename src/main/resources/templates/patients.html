@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="template">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="template">
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
@@ -10,7 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <h1 class="text-secondary">Liste des Patients</h1>
-                    <form method="get" th:action="@{patients}" class="row justify-content-center">
+                    <form method="get" th:action="@{/user/patients}" class="row justify-content-center">
                         <input name="key" type="text" class="form-control" th:value="${key}" placeholder="Nom...">
                         <button type="submit" class="btn btn-outline-success m-2">Chercher</button>
                     </form>
@@ -31,11 +32,11 @@
                             <td th:text="${p.nom}"></td>
                             <td th:text="${p.dateNaissance}"></td>
                             <td th:text="${p.score}"></td>
-                            <td>
-                                <a class="btn btn-outline-secondary" th:href="@{update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier</a>
+                            <td sec:authorize="hasAnyRole('ADMIN')">
+                                <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier</a>
                             </td>
-                            <td>
-                                <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer</a>
+                            <td sec:authorize="hasAnyRole('ADMIN')">
+                                <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer</a>
                             </td>
                         </tr>
                         </tbody>

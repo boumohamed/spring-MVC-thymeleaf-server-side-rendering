@@ -23,7 +23,7 @@ public class patientController {
 
     private patientRepository patientRepo;
 
-    @GetMapping(path = "/patients")
+    @GetMapping(path = "/user/patients")
     public String Patients(Model model,
                            @RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "5") int size,
@@ -37,25 +37,26 @@ public class patientController {
         model.addAttribute("currentPage", page);
         model.addAttribute("key", key);
         return "patients";
+        // UUID generate raondom
     }
 
-    @GetMapping("/PatientForm")
+    @GetMapping("/admin/PatientForm")
     public String PatientForm(Model model)
     {
         model.addAttribute("patient", new Patient());
         return "PatientForm";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
     public String Save(Model model, @Valid Patient p, BindingResult bindingResult,
                        @RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "") String key)
     {
         if (bindingResult.hasErrors()) return "PatientForm";
         patientRepo.save(p);
-        return "redirect:/patients?page="+page+"&key="+key;
+        return "redirect:/user/patients?page="+page+"&key="+key;
     }
-    @GetMapping("/update")
+    @GetMapping("/admin/update")
     public String Update(Model model, Long id, int page, String key)
     {
         Patient p = patientRepo.findById(id).orElse(null);
@@ -68,17 +69,17 @@ public class patientController {
         return "editPatient";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String delete(Long id, String key, int page)
     {
         patientRepo.deleteById(id);
-        return "redirect:/patients?page="+page+"&key="+key;
+        return "redirect:/user/patients?page="+page+"&key="+key;
     }
 
     @GetMapping("/")
     public String home()
     {
-        return "redirect:/patients";
+        return "home";
     }
 
 
