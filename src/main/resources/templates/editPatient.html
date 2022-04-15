@@ -10,7 +10,7 @@
     <div class="container p-3">
         <div class="col-md-6 offset-3">
             <h1 class="text-success m-3">Modifier Patient</h1>
-            <form th:method="post" th:action="@{save(page=${page}, key=${key})}">
+            <form th:method="post" th:action="@{/admin/save(page=${page}, key=${key})}">
                 <div class="mb-3">
                     <label for="id" class="form-label">ID : </label>
                     <label th:text="${patient.id}"></label>
