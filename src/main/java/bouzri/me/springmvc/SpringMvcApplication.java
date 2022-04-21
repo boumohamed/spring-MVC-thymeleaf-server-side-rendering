@@ -14,6 +14,7 @@ public class SpringMvcApplication implements CommandLineRunner {
 
     @Autowired
     private patientRepository pr;
+
     public static void main(String[] args) {
         SpringApplication.run(SpringMvcApplication.class, args);
     }
