@@ -1,13 +1,10 @@
-package bouzri.me.springmvc.entities;
+package bouzri.me.springmvc.security.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +14,7 @@ import java.util.List;
 public class AppUser {
     @Id
     private String userId;
+    @Column(unique = true)
     private String username;
     private String password;
     private boolean active;
