@@ -11,6 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
@@ -48,8 +50,19 @@ public class SpringMvcApplication implements CommandLineRunner {
         securityService.addRoleToUser("mohamed", "ADMIN");
         securityService.addRoleToUser("mohamed", "USER");
         securityService.addRoleToUser("user1", "USER");
-    */
 
+        securityService.saveNewUser("admin", "bouzri", "bouzri");
+
+        securityService.addRoleToUser("admin", "ADMIN");
+        securityService.addRoleToUser("admin", "USER");
+
+         */
+
+
+    }
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return  new BCryptPasswordEncoder();
     }
 
 }
