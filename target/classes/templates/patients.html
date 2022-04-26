@@ -49,19 +49,23 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr th:each="p:${patients}">
+                            <a href="#">
                             <td th:text="${p.id}"></td>
                             <td th:text="${p.nom}"></td>
                             <td th:text="${p.dateNaissance}"></td>
                             <td th:text="${p.score}"></td>
 
-                            <td th:text="${p.malade} ? 'MALADE' : 'SAIN '"></td>
+                            <td th:text="${p.malade} ? 'MALADE' : 'SAIN '" th:class="${p.malade} ? 'text-danger' : 'text-success'"></td>
+                            </a>
                             <td sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier</a>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier</a>
+                                    <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer</a>
+                                </div>
                             </td>
-                            <td sec:authorize="hasAuthority('ADMIN')">
-                                <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer</a>
-                            </td>
+
                         </tr>
                         </tbody>
                     </table>
