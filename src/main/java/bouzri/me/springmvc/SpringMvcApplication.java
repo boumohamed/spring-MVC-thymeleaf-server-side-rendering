@@ -32,10 +32,17 @@ public class SpringMvcApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*for (int i = 0; i < 10; i ++)
+
+        /*
+        for (int i = 0; i < 5; i ++)
         {
             pr.save(
-                    new Patient(null, "Amina"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10)));
+                    new Patient(null, "Mohamed"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10) + 10));
+        }
+        for (int i = 0; i < 10; i ++)
+        {
+            pr.save(
+                    new Patient(null, "Amina"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10) + 10));
         }
 
 
@@ -57,6 +64,8 @@ public class SpringMvcApplication implements CommandLineRunner {
         securityService.addRoleToUser("admin", "USER");
 
          */
+
+
 
 
     }
