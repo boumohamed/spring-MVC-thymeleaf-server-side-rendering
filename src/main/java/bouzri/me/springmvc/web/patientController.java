@@ -2,7 +2,9 @@ package bouzri.me.springmvc.web;
 
 
 import bouzri.me.springmvc.entities.Patient;
+import bouzri.me.springmvc.entities.RendezVous;
 import bouzri.me.springmvc.repositories.patientRepository;
+import bouzri.me.springmvc.repositories.rendezVousRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,7 @@ public class patientController {
 
 
     private patientRepository patientRepo;
+    private rendezVousRepository rvRepo;
 
     @GetMapping(path = "/user/patients")
     public String Patients(Model model,
@@ -83,14 +86,17 @@ public class patientController {
     }
 
     @GetMapping("/admin/details/patient")
-    public String details(Model model, Long id, int page, String key)
+    public String details(Model model, Long id, int page, String key, String malade, int score)
     {
         Patient p = patientRepo.findById(id).orElse(null);
         if (p == null) return "400";
 
+        model.addAttribute("rendezvous", new RendezVous());
         model.addAttribute("patient", p);
         model.addAttribute("page", page);
         model.addAttribute("key", key);
+        model.addAttribute("malade", malade);
+        model.addAttribute("score", score);
 
 
         return "detailsPatient";
@@ -109,5 +115,28 @@ public class patientController {
         return "home";
     }
 
+    @PostMapping("/admin/rendezvous/save")
+    public String SaveRendzeVous(Model model, @Valid RendezVous v, BindingResult bindingResult,
+                                @RequestParam() Long id,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam() String malade,
+                                @RequestParam(defaultValue = "0") int score,
+                                @RequestParam(defaultValue = "") String key
 
+    )
+    {
+        if (bindingResult.hasErrors()) return "detailsPatient";
+        Patient patient = patientRepo.findById(id).orElse(null);
+        System.out.println(id);
+        System.out.println(patient.getNom());
+        v.setPatient(patient);
+        v.setMedcin(null);
+        v.setAnnuler(false);
+        rvRepo.save(v);
+
+        patient.getRendezVous().add(v);
+
+
+        return "redirect:/user/patients?page="+page+"&key="+key+"&malade="+malade+"&score="+score;
+    }
 }
