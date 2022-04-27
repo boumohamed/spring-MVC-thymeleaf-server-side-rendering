@@ -1,7 +1,9 @@
 package bouzri.me.springmvc.web;
 
 
+import bouzri.me.springmvc.entities.Medcin;
 import bouzri.me.springmvc.entities.Patient;
+import bouzri.me.springmvc.repositories.medcinRepository;
 import bouzri.me.springmvc.repositories.patientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,43 +16,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class patientController {
+public class medcinController {
 
 
-    private patientRepository patientRepo;
+    private medcinRepository medcinRepo;
 
-    @GetMapping(path = "/user/patients")
-    public String Patients(Model model,
-                           @RequestParam(name = "page", defaultValue = "0") int page,
-                           @RequestParam(name = "size", defaultValue = "5") int size,
-                           @RequestParam(name = "key", defaultValue = "") String key,
-                           @RequestParam(name = "malade", defaultValue = "") String malade,
-                           @RequestParam(name = "score", defaultValue = "0") int score
-                          )
+
+    @GetMapping(path = "/user/medcins")
+    public String Medcins(Model model)
     {
-        Page<Patient> pagePatient;
-        if (malade.equals("malade"))
-            pagePatient = patientRepo.findByNomContainsAndMaladeAndScoreGreaterThan(key, true, score, PageRequest.of(page,size));
-        else if (malade.equals("sain"))
-            pagePatient = patientRepo.findByNomContainsAndMaladeAndScoreGreaterThan(key, false, score, PageRequest.of(page,size));
-        else
-            pagePatient = patientRepo.findByNomContainsAndScoreGreaterThan(key, score, PageRequest.of(page,size));
-
-        model.addAttribute("currentPage", page);
-        model.addAttribute("key", key);
-        model.addAttribute("malade", malade);
-        model.addAttribute("score", score);
-        model.addAttribute("patients", pagePatient.getContent());
-        model.addAttribute("pages", new int[pagePatient.getTotalPages()]);
-
-        return "patients";
+        List<Medcin> medcins = medcinRepo.findAll();
+        model.addAttribute("medcins", medcins);
+        return "medcins";
         // UUID generate raondom
     }
-
+/*
     @GetMapping("/admin/PatientForm")
     public String PatientForm(Model model)
     {
@@ -82,20 +66,6 @@ public class patientController {
         return "editPatient";
     }
 
-    @GetMapping("/admin/details/patient")
-    public String details(Model model, Long id, int page, String key)
-    {
-        Patient p = patientRepo.findById(id).orElse(null);
-        if (p == null) return "400";
-
-        model.addAttribute("patient", p);
-        model.addAttribute("page", page);
-        model.addAttribute("key", key);
-
-
-        return "detailsPatient";
-    }
-
     @GetMapping("/admin/delete")
     public String delete(Long id, String key, int page)
     {
@@ -108,6 +78,8 @@ public class patientController {
     {
         return "home";
     }
+
+ */
 
 
 }

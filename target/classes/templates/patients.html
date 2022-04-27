@@ -51,18 +51,17 @@
                         <tbody>
 
                         <tr th:each="p:${patients}">
-                            <a href="#">
                             <td th:text="${p.id}"></td>
                             <td th:text="${p.nom}"></td>
                             <td th:text="${p.dateNaissance}"></td>
                             <td th:text="${p.score}"></td>
 
                             <td th:text="${p.malade} ? 'MALADE' : 'SAIN '" th:class="${p.malade} ? 'text-danger' : 'text-success'"></td>
-                            </a>
                             <td sec:authorize="hasAuthority('ADMIN')">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier</a>
-                                    <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer</a>
+                                    <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier <i class="fa-solid fa-pen"></i></a>
+                                    <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer <i class="fa-solid fa-trash-can"></i></a>
+                                    <a class="btn btn-outline-primary" th:href="@{/admin/details/patient(id=${p.id}, key=${key}, page=${currentPage})}">Détails <i class="fa-solid fa-arrow-right"></i></a>
                                 </div>
                             </td>
 
