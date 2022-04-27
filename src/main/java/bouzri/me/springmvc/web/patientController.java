@@ -97,10 +97,10 @@ public class patientController {
     }
 
     @GetMapping("/admin/delete")
-    public String delete(Long id, String key, int page)
+    public String delete(Long id, String key, int page, String malade, int score)
     {
         patientRepo.deleteById(id);
-        return "redirect:/user/patients?page="+page+"&key="+key;
+        return "redirect:/user/patients?page="+page+"&key="+key+"&malade="+malade+"&score="+score;
     }
 
     @GetMapping("/")
