@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -32,4 +33,8 @@ public class Patient {
     @DecimalMin("10")
     @DecimalMax("100")
     private int score;
+
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Collection<RendezVous> rendezVous;
 }

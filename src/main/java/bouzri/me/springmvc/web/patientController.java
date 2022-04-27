@@ -82,11 +82,25 @@ public class patientController {
         return "editPatient";
     }
 
+    @GetMapping("/admin/details/patient")
+    public String details(Model model, Long id, int page, String key)
+    {
+        Patient p = patientRepo.findById(id).orElse(null);
+        if (p == null) return "400";
+
+        model.addAttribute("patient", p);
+        model.addAttribute("page", page);
+        model.addAttribute("key", key);
+
+
+        return "detailsPatient";
+    }
+
     @GetMapping("/admin/delete")
-    public String delete(Long id, String key, int page)
+    public String delete(Long id, String key, int page, String malade, int score)
     {
         patientRepo.deleteById(id);
-        return "redirect:/user/patients?page="+page+"&key="+key;
+        return "redirect:/user/patients?page="+page+"&key="+key+"&malade="+malade+"&score="+score;
     }
 
     @GetMapping("/")

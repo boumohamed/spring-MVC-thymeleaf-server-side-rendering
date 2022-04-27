@@ -3,35 +3,39 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="template">
 <head>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
     <div layout:fragment="content1">
         <div class="container mt-3">
             <div class="card">
-                <div class="card-header">
-                    <h1 class="text-secondary">Liste des Patients</h1>
+                <div class="p-3">
+                    <h1 class="text-success row justify-content-center m-3">Liste des Patients</h1>
                     <form method="get" th:action="@{/user/patients}" class="row">
                         <div class="form-group col-6">
+                            <label class="form-label" for="inlineRadio2">Nom</label>
                             <input name="key" type="text" class="form-control" th:value="${key}" placeholder="Nom...">
                         </div>
                         <div class="form-group col-6">
+                            <label class="form-label" for="inlineRadio2">Score</label>
                             <input name="score" type="number" min="0" th:value="${score}" class="form-control" placeholder="Score...">
                         </div>
-                        <div class="form-radio form-check-inline">
-                            <input class="form-check-input" type="radio" name="malade" id="inlineRadio1" value="tout" th:checked="${malade == 'tout'? true : false}">
-                            <label class="form-check-label" for="inlineRadio2">Tout</label>
-                        </div>
-                        <div class="form-radio form-check-inline">
-                            <input class="form-check-input" type="radio" name="malade" id="inlineRadio2" value="malade" th:checked="${malade == 'malade'? true : false}">
-                            <label class="form-check-label" for="inlineRadio2">Malades</label>
-                        </div>
-                        <div class="form-radio form-check-inline">
-                            <input class="form-check-input" type="radio" name="malade" id="inlineRadio3" value="sain" th:checked="${malade == 'sain'? true : false}">
-                            <label class="form-check-label" for="inlineRadio2">Sains</label>
+                        <div class="row m-2">
+                            <div class="form-radio col-4">
+                                <input class="form-check-input" type="radio" name="malade" id="inlineRadio1" value="tout" th:checked="${malade == 'tout'? true : false}">
+                                <label class="radio-inline" for="inlineRadio2">Tout</label>
+                            </div>
+                            <div class="form-radio col-4">
+                                <input class="form-check-input" type="radio" name="malade" id="inlineRadio2" value="malade" th:checked="${malade == 'malade'? true : false}">
+                                <label class="radio-inline" for="inlineRadio2">Malades</label>
+                            </div>
+                            <div class="form-radio col-4">
+                                <input class="form-check-input" type="radio" name="malade" id="inlineRadio3" value="sain" th:checked="${malade == 'sain'? true : false}">
+                                <label class="radio-inline" for="inlineRadio2">Sains</label>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-outline-success m-2">Chercher</button>
+
+                        <button type="submit" class="btn btn-outline-success m-2">chercher <i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
 
@@ -45,7 +49,7 @@
                             <th> Nom </th>
                             <th> Date </th>
                             <th> Score </th>
-                            <th> Status </th>
+                            <th> état </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,12 +59,12 @@
                             <td th:text="${p.nom}"></td>
                             <td th:text="${p.dateNaissance}"></td>
                             <td th:text="${p.score}"></td>
-
                             <td th:text="${p.malade} ? 'MALADE' : 'SAIN '" th:class="${p.malade} ? 'text-danger' : 'text-success'"></td>
                             <td sec:authorize="hasAuthority('ADMIN')">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier</a>
-                                    <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, page=${currentPage})}">Supprimer</a>
+                                    <a class="btn btn-outline-secondary" th:href="@{/admin/update(id=${p.id}, key=${key}, page=${currentPage})}">Modifier <i class="fa-solid fa-pen"></i></a>
+                                    <a onclick="return confirm('sure ?')" class="btn btn-outline-danger" th:href="@{/admin/delete(id=${p.id}, key=${key}, malade=${malade}, score=${score}, page=${currentPage})}">Supprimer <i class="fa-solid fa-trash-can"></i></a>
+                                    <a class="btn btn-outline-primary" th:href="@{/admin/details/patient(id=${p.id}, key=${key}, page=${currentPage})}">Détails <i class="fa-solid fa-arrow-right"></i></a>
                                 </div>
                             </td>
 
@@ -71,7 +75,7 @@
                         <li th:each="page, status:${pages}">
                             <a th:class="${status.index==currentPage?'btn btn-secondary m-1':'btn btn-outline-secondary m-1'}"
                                th:text="${status.index}"
-                               th:href="@{patients(page=${status.index}, key=${key}, malade=${malade})}"></a>
+                               th:href="@{patients(page=${status.index}, key=${key}, malade=${malade}, score=${score})}"></a>
                         </li>
                     </ul>
                 </div>
