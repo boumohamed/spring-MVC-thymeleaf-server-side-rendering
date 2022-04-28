@@ -1,6 +1,8 @@
 package bouzri.me.springmvc;
 
+import bouzri.me.springmvc.entities.Medcin;
 import bouzri.me.springmvc.entities.Patient;
+import bouzri.me.springmvc.repositories.medcinRepository;
 import bouzri.me.springmvc.repositories.patientRepository;
 import bouzri.me.springmvc.security.entities.AppUser;
 import bouzri.me.springmvc.security.repositories.AppUserRepository;
@@ -24,6 +26,11 @@ public class SpringMvcApplication implements CommandLineRunner {
     private patientRepository pr;
 
     @Autowired
+    private medcinRepository mr;
+
+
+
+    @Autowired
     private SecurityService securityService;
 
     public static void main(String[] args) {
@@ -32,10 +39,21 @@ public class SpringMvcApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*for (int i = 0; i < 10; i ++)
+
+/*
+        mr.save(new Medcin(null, "SELLAMI", "Sellami@gmail.com", "Chirurgien", null));
+        mr.save(new Medcin(null, "BENNANI", "bennani@gmail.com", "gynécologue", null));
+        mr.save(new Medcin(null, "TAZI", "tazi@gmail.com", "Dentiste", null));
+
+        for (int i = 0; i < 5; i ++)
         {
             pr.save(
-                    new Patient(null, "Amina"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10)));
+                    new Patient(null, "Mohamed"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10) + 10));
+        }
+        for (int i = 0; i < 10; i ++)
+        {
+            pr.save(
+                    new Patient(null, "Amina"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10) + 10));
         }
 
 
@@ -57,6 +75,8 @@ public class SpringMvcApplication implements CommandLineRunner {
         securityService.addRoleToUser("admin", "USER");
 
          */
+
+
 
 
     }

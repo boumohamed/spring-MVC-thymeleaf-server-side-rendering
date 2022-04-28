@@ -15,7 +15,8 @@
 ![image](https://user-images.githubusercontent.com/62290643/163409683-c45f57b5-c424-4182-b639-935b49f125f7.png)
 # liste Patients (Admin)
 ![image](https://user-images.githubusercontent.com/62290643/163409908-1ca26210-9a0a-4946-a898-0c43ee55f985.png)
-
+# recherche multicritère
+![image](https://user-images.githubusercontent.com/62290643/165369804-91b0b500-a643-487f-b07c-ca082efc4630.png)
 
 
 
