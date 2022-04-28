@@ -11,23 +11,43 @@
                 <div class="card col-6">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${patient.getNom()}"></h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <p  th:text="${patient.malade} ? 'MALADE' : 'SAIN '" th:class="${patient.malade} ? ' card-text text-danger' : 'cartd-text text-success'"></p>
+
 
                     </div>
                 </div>
                 <div class="col-6">
                     <h3>Ajouter un rendez-Vous</h3>
-                    <form th:method="post" th:action="@{/admin/save}">
+                    <form th:method="post" th:action="@{/admin/rendezvous/save/(id=${patient.id}, malade=${malade}, score=${score})}">
                         <div class="mb-3">
-                            <label for="date" class="form-label">Date Naissance</label>
-                            <input type="date" class="form-control" name="dateNaissance" id="date" >
-
+                            <label for="date" class="form-label">Date Rendez Vous</label>
+                            <input type="date" class="form-control" name="date" id="date" >
                         </div>
 
                         <button type="submit" class="btn btn-success">Ajouter</button>
                     </form>
                 </div>
             </div>
+            <table class="table mt-3 table-hover">
+                <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Nom </th>
+                    <th> Date </th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="r:${patient.getRendezVous()}">
+                    <td th:text="${r.id}"></td>
+                    <td th:text="${r.date}"></td>
+                    <td th:text="${r.annuler}"></td>
+
+
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
