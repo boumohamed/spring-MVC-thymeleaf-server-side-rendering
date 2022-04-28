@@ -7,33 +7,25 @@
 <body>
 <div layout:fragment="content1">
         <div class="container p-3">
-            <div class="row">
-                <div class="card col-6">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${patient.getNom()}"></h5>
-                        <p  th:text="${patient.malade} ? 'MALADE' : 'SAIN '" th:class="${patient.malade} ? ' card-text text-danger' : 'cartd-text text-success'"></p>
-
-
-                    </div>
-                </div>
-                <div class="col-6">
-                    <h3>Ajouter un rendez-Vous</h3>
-                    <form th:method="post" th:action="@{/admin/rendezvous/save/(id=${patient.id}, malade=${malade}, score=${score})}">
+                    <h3 class="text-primary m-5">Ajouter un rendez-Vous pour <span th:text="${patient.nom}"></span></h3>
+                    <form class="mb-5" th:method="post" th:action="@{/admin/rendezvous/save/(id=${patient.id}, malade=${malade}, score=${score})}">
                         <div class="mb-3">
                             <label for="date" class="form-label">Date Rendez Vous</label>
                             <input type="date" class="form-control" name="date" id="date" >
                         </div>
-
-                        <button type="submit" class="btn btn-success">Ajouter</button>
+                        <select class="form-select mb-3" name="medcinId" aria-label="Default select example">
+                            <option th:each="m:${medcin}" th:text="${m.nom}" th:value="${m.id}"></option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
                     </form>
-                </div>
-            </div>
-            <table class="table mt-3 table-hover">
+
+            <table class="table mt-5 table-hover">
                 <thead>
                 <tr>
                     <th> ID </th>
-                    <th> Nom </th>
                     <th> Date </th>
+                    <th> Medcin </th>
+                    <th> etat Rendez-Vous </th>
 
                 </tr>
                 </thead>
@@ -42,9 +34,8 @@
                 <tr th:each="r:${patient.getRendezVous()}">
                     <td th:text="${r.id}"></td>
                     <td th:text="${r.date}"></td>
-                    <td th:text="${r.annuler}"></td>
-
-
+                    <td th:text="${r.medcin.nom}"></td>
+                    <td th:text="${r.annuler} ? 'ANNULER' : 'EN COURS '" th:class="${r.annuler} ? 'text-danger' : 'text-info'"></td>
                 </tr>
                 </tbody>
             </table>

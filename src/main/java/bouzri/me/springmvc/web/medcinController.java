@@ -34,24 +34,23 @@ public class medcinController {
         return "medcins";
         // UUID generate raondom
     }
-/*
-    @GetMapping("/admin/PatientForm")
+
+    @GetMapping("/admin/medcinForm")
     public String PatientForm(Model model)
     {
-        model.addAttribute("patient", new Patient());
-        return "PatientForm";
+        model.addAttribute("medcin", new Medcin());
+        return "MedcinForm";
     }
 
-    @PostMapping("/admin/save")
-    public String Save(Model model, @Valid Patient p, BindingResult bindingResult,
-                       @RequestParam(defaultValue = "0") int page,
-                       @RequestParam(defaultValue = "") String key
-                       )
+    @PostMapping("/admin/medcin/save")
+    public String Save(Model model, @Valid Medcin m, BindingResult bindingResult)
     {
-        if (bindingResult.hasErrors()) return "PatientForm";
-        patientRepo.save(p);
-        return "redirect:/user/patients?page="+page+"&key="+key;
+        if (bindingResult.hasErrors()) return "MedcinForm";
+        m.setRendezVous(null);
+        medcinRepo.save(m);
+        return "redirect:/user/medcins";
     }
+    /*
     @GetMapping("/admin/update")
     public String Update(Model model, Long id, int page, String key)
     {

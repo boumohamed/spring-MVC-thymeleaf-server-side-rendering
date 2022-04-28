@@ -9,7 +9,7 @@
 <div layout:fragment="content1">
     <div class="container p-3">
         <div class="col-md-6 offset-3">
-            <h1 class="text-success m-3">Nouveau Patient</h1>
+            <h1 class="text-primary m-3">Nouveau Patient</h1>
             <form th:method="post" th:action="@{/admin/save}">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nom</label>
@@ -30,7 +30,7 @@
                     <input type="checkbox" class="form-check-input" name="malade" th:checked="${patient.malade}" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Malade</label>
                 </div>
-                <button type="submit" class="btn btn-success">Ajouter</button>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
         </div>
     </div>

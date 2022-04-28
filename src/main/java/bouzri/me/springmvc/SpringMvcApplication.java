@@ -40,10 +40,11 @@ public class SpringMvcApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-/*
+        /*
         mr.save(new Medcin(null, "SELLAMI", "Sellami@gmail.com", "Chirurgien", null));
         mr.save(new Medcin(null, "BENNANI", "bennani@gmail.com", "gynécologue", null));
         mr.save(new Medcin(null, "TAZI", "tazi@gmail.com", "Dentiste", null));
+
 
         for (int i = 0; i < 5; i ++)
         {
